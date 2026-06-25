@@ -1,0 +1,47 @@
+.love-hate {
+  background: var(--color-dark-grey);
+  margin: 0;
+  padding-top: 180px;
+  padding-bottom: 180px;
+  padding-left: clamp(1.25rem, 5vw, 5rem);
+  padding-right: clamp(1.25rem, 5vw, 5rem);
+  text-align: center;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: clip;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.skills-section + .love-hate {
+  padding-top: 180px;
+}
+
+.love-hate__block {
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.love-hate__text {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.05;
+  color: var(--color-portfolio-beige);
+  text-align: center;
+}
+
+.love-hate__accent {
+  color: var(--color-red);
+  font-style: italic;
+}
+
+.love-hate__divider {
+  margin: 3rem auto;
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--color-red);
+}

@@ -1,0 +1,29 @@
+:root {
+  /* Colors */
+  --color-red: #e84025;
+  --color-portfolio-beige: #f2ede4;
+  --color-portfolio-white: #ffffff;
+  --color-charcoal: #2a2a2a;
+  --color-dark-grey: #252525;
+  --color-black: #111111;
+  --color-near-black: #1a1a1a;
+  --color-white: #ffffff;
+
+  /* Typography */
+  --font-serif: "Averia Serif Libre", Georgia, "Times New Roman", serif;
+  --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
+
+  /* Layout */
+  --page-max: 1440px;
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --hero-edge: clamp(1.5rem, 2vw, 2rem);
+  --section-pad-y: clamp(3.5rem, 8vw, 6rem);
+
+  /* Motion */
+  --ease-smooth: cubic-bezier(0.33, 1, 0.68, 1);
+  --duration-medium: 700ms;
+  --duration-fast: 350ms;
+
+  /* Carousel */
+  --carousel-interval: 5000ms;
+}

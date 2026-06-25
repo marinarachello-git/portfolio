@@ -1,0 +1,47 @@
+/* Section adjacency — loaded last to kill gaps between full-width blocks */
+
+#main > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.snapshots-outer {
+  margin-bottom: 0;
+  padding-top: 180px;
+  padding-bottom: 0;
+}
+
+.intro + .snapshots-outer {
+  margin-top: 0;
+  padding-top: 180px;
+  padding-bottom: 0;
+}
+
+.snapshots-outer + .career-section {
+  margin-top: 0;
+  border-top: none;
+  box-shadow: 0 -20px 0 0 #f0ebe1;
+}
+
+.career-section {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.career-section + .skills-section {
+  margin-top: 0;
+}
+
+@media (max-width: 768px) {
+  #main > .snapshots-outer,
+  #main > .intro + .snapshots-outer {
+    padding-top: 0 !important;
+  }
+
+  html,
+  body,
+  #main {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+}

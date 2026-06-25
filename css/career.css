@@ -1,0 +1,115 @@
+.career-section {
+  border-top: none;
+  border-bottom: 10px solid var(--color-red);
+  margin: 0;
+  padding-top: 180px;
+  padding-bottom: 180px;
+  background: #f0ebe1;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+.career-header {
+  margin-bottom: 100px;
+  padding: 0 32px 0;
+  line-height: normal;
+}
+
+.career-header__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 700;
+  font-style: italic;
+  color: var(--color-red);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.career-outer {
+  overflow: clip;
+  overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  line-height: 0;
+  box-sizing: border-box;
+  contain: inline-size layout paint;
+  isolation: isolate;
+}
+
+.career-track {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  gap: 100px;
+  will-change: transform;
+  line-height: normal;
+  vertical-align: top;
+  max-width: none;
+}
+
+.career-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-shrink: 0;
+  height: 220px;
+  border-left: 1px solid #c8c2b8;
+  padding: 16px 0 0 24px;
+}
+
+.career-card__meta {
+  align-self: flex-start;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.33;
+  color: #2a2a2a;
+  opacity: 0.5;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.career-card__name {
+  align-self: flex-start;
+  margin: 0;
+  padding-bottom: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(3rem, 10vw, 80px);
+  font-weight: 700;
+  color: #1a1a1a;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+@media (min-width: 1024px) {
+  .career-card__name {
+    font-size: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .career-header {
+    padding: 0 24px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .career-track {
+    will-change: auto;
+  }
+}

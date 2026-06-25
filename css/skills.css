@@ -1,0 +1,129 @@
+.skills-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 48px;
+  padding: 80px 48px;
+  background: #e8472a;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: clip;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.skills-list {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+  margin-top: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.skill-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.skill-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: calc(50px * 1.1 + 48px);
+  padding: 24px 0;
+  cursor: pointer;
+}
+
+.skill-name {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-sans);
+  font-size: 50px;
+  font-weight: 300;
+  line-height: 1.1;
+  color: #f2ede4;
+}
+
+.skill-toggle {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.skill-toggle__icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.skill-body {
+  padding: 0 0 24px 0;
+}
+
+.skill-body p {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  color: #fff;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 480px;
+}
+
+@media (min-width: 769px) {
+  .skill-name {
+    white-space: nowrap;
+  }
+}
+
+.skills-title {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  margin: 0;
+  padding-top: 0;
+  position: sticky;
+  top: 80px;
+  text-align: right;
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.05;
+}
+
+@media (max-width: 768px) {
+  .skills-section {
+    grid-template-columns: 1fr;
+    padding: 48px 24px;
+  }
+
+  .skills-list {
+    grid-column: auto;
+  }
+
+  .skills-title {
+    grid-column: auto;
+    position: static;
+    text-align: left;
+    margin-bottom: 40px;
+  }
+
+  .skill-row {
+    min-height: calc(clamp(1.75rem, 8vw, 50px) * 1.1 + 48px);
+  }
+
+  .skill-name {
+    font-size: clamp(1.75rem, 8vw, 50px);
+    white-space: normal;
+  }
+}

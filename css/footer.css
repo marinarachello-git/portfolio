@@ -1,0 +1,95 @@
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--color-red);
+  min-height: 50vh;
+  padding: 48px 48px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+  color: var(--color-portfolio-beige);
+  text-align: center;
+}
+
+footer.is-revealed {
+  z-index: 100;
+  pointer-events: auto;
+}
+
+.footer-headline {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  font-family: var(--font-serif);
+  font-size: 13vw;
+  white-space: nowrap;
+  line-height: 1;
+  padding-bottom: 0;
+  text-align: center;
+}
+
+.footer-thankyou {
+  font-size: inherit;
+  font-weight: 700;
+  color: var(--color-portfolio-beige);
+}
+
+.footer-bye {
+  font-size: inherit;
+  font-weight: 900;
+  color: var(--color-near-black);
+}
+
+.footer-links {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding-top: 40px;
+  pointer-events: none;
+}
+
+footer.is-revealed .footer-links {
+  pointer-events: auto;
+}
+
+.footer-links a {
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-portfolio-beige);
+  text-decoration: none;
+  line-height: 2;
+}
+
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  text-decoration: underline;
+}
+
+.footer-spacer {
+  flex-shrink: 0;
+  height: 50vh;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  footer {
+    padding: 48px 24px 64px;
+  }
+}
