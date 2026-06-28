@@ -2,7 +2,8 @@ const MOBILE_QUERY = "(max-width: 768px)";
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 export function initSnapshots(root) {
-  if (!root) return;
+  if (!root || root.dataset.snapshotsInit === "true") return;
+  root.dataset.snapshotsInit = "true";
 
   const sticky = root.querySelector(".snapshots-sticky");
   const track = root.querySelector("[data-snapshots-track]");
@@ -14,18 +15,108 @@ export function initSnapshots(root) {
   const reducedMq = window.matchMedia(REDUCED_MOTION_QUERY);
 
   let rafId = null;
+  let mobileCarousel = null;
 
   const shouldUseScrollHijack = () =>
     !mobileMq.matches && !reducedMq.matches;
 
+  const shouldUseMobileCarousel = () => mobileMq.matches;
+
   const getSampleImage = () => track.querySelector(".snapshots-card__image");
 
-  const getMobileCardCap = () => {
-    const trackStyles = getComputedStyle(track);
-    const padding =
-      parseFloat(trackStyles.paddingLeft) + parseFloat(trackStyles.paddingRight);
-    const trackWidth = track.clientWidth || wrapper.clientWidth || window.innerWidth;
-    return Math.max(0, (trackWidth - padding) * 0.85);
+  const getOriginalCards = () =>
+    [...track.querySelectorAll(".snapshots-card")].filter(
+      (card) => !card.hasAttribute("data-snapshot-clone")
+    );
+
+  const teardownMobileCarousel = () => {
+    track.querySelectorAll("[data-snapshot-clone]").forEach((clone) => {
+      clone.remove();
+    });
+
+    if (!mobileCarousel) return;
+
+    getMobileScroller().removeEventListener("scroll", mobileCarousel.onScroll);
+    getMobileScroller().scrollLeft = 0;
+    mobileCarousel = null;
+  };
+
+  const getMobileScroller = () => wrapper;
+
+  const centerCard = (card) => {
+    if (!card) return;
+    const scroller = getMobileScroller();
+    const cardOffset = track.offsetLeft + card.offsetLeft;
+    scroller.scrollLeft =
+      cardOffset + card.offsetWidth / 2 - scroller.clientWidth / 2;
+  };
+
+  const getCarouselSetWidth = (originals) => {
+    const first = originals[0];
+    const last = originals[originals.length - 1];
+    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+    return last.offsetLeft + last.offsetWidth + gap - first.offsetLeft;
+  };
+
+  const setupMobileCarousel = () => {
+    teardownMobileCarousel();
+
+    const originals = getOriginalCards();
+    if (originals.length === 0) return;
+
+    const makeClone = (card) => {
+      const clone = card.cloneNode(true);
+      clone.setAttribute("data-snapshot-clone", "true");
+      clone.querySelectorAll("img").forEach((img) => {
+        img.removeAttribute("id");
+      });
+      return clone;
+    };
+
+    originals.forEach((card, index) => {
+      const clone = makeClone(originals[originals.length - 1 - index]);
+      track.insertBefore(clone, track.firstChild);
+    });
+
+    originals.forEach((card) => {
+      track.appendChild(makeClone(card));
+    });
+
+    let jumping = false;
+
+    const onScroll = () => {
+      if (jumping) return;
+
+      const scroller = getMobileScroller();
+      const setWidth = getCarouselSetWidth(originals);
+      const loopStart = originals[0].offsetLeft;
+      const buffer = setWidth * 0.15;
+
+      if (scroller.scrollLeft < loopStart - buffer) {
+        jumping = true;
+        scroller.scrollLeft += setWidth;
+        jumping = false;
+      } else if (scroller.scrollLeft > loopStart + setWidth - buffer) {
+        jumping = true;
+        scroller.scrollLeft -= setWidth;
+        jumping = false;
+      }
+    };
+
+    getMobileScroller().addEventListener("scroll", onScroll, { passive: true });
+
+    mobileCarousel = { onScroll, originals };
+
+    const queueCenter = () => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          centerCard(originals[0]);
+        });
+      });
+    };
+
+    queueCenter();
+    window.addEventListener("load", queueCenter, { once: true });
   };
 
   const applyCardSizing = () => {
@@ -36,12 +127,9 @@ export function initSnapshots(root) {
     const nativeWidth = sample.naturalWidth;
     const crispCap = nativeWidth / dpr;
     const desktopCap = Math.min(1024, wrapper.clientWidth * 0.92);
-    const mobileCap = getMobileCardCap();
     const desktopWidth = Math.round(Math.min(desktopCap, crispCap));
-    const mobileWidth = Math.round(Math.min(mobileCap, crispCap));
 
     root.style.setProperty("--snapshots-card-width", `${desktopWidth}px`);
-    root.style.setProperty("--snapshots-card-width-mobile", `${mobileWidth}px`);
   };
 
   const getMaxTranslate = () => {
@@ -53,7 +141,6 @@ export function initSnapshots(root) {
   const setOuterHeight = () => {
     if (!shouldUseScrollHijack()) {
       root.style.height = "";
-      wrapper.scrollLeft = 0;
       return;
     }
 
@@ -67,7 +154,9 @@ export function initSnapshots(root) {
 
   const updateScrollPosition = () => {
     if (!shouldUseScrollHijack()) {
-      wrapper.scrollLeft = 0;
+      if (!shouldUseMobileCarousel()) {
+        wrapper.scrollLeft = 0;
+      }
       return;
     }
 
@@ -88,6 +177,16 @@ export function initSnapshots(root) {
     wrapper.scrollLeft = offset;
   };
 
+  const syncCarouselMode = () => {
+    track.style.transform = "";
+
+    if (shouldUseMobileCarousel()) {
+      setupMobileCarousel();
+    } else {
+      teardownMobileCarousel();
+    }
+  };
+
   const scheduleUpdate = () => {
     if (rafId) return;
 
@@ -102,6 +201,7 @@ export function initSnapshots(root) {
   const onScroll = () => scheduleUpdate();
 
   const onMqChange = () => {
+    syncCarouselMode();
     applyCardSizing();
     setOuterHeight();
     updateScrollPosition();
@@ -114,6 +214,7 @@ export function initSnapshots(root) {
   });
 
   applyCardSizing();
+  syncCarouselMode();
   setOuterHeight();
   updateScrollPosition();
 

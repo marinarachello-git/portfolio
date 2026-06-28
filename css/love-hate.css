@@ -18,6 +18,18 @@
   padding-top: 180px;
 }
 
+@media (max-width: 768px) {
+  .love-hate {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-inline: 24px;
+  }
+
+  .skills-section + .love-hate {
+    padding-top: 0;
+  }
+}
+
 .love-hate__block {
   max-width: 100%;
   margin-inline: auto;

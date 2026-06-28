@@ -33,15 +33,28 @@
 }
 
 @media (max-width: 768px) {
+  #main > .intro,
   #main > .snapshots-outer,
-  #main > .intro + .snapshots-outer {
-    padding-top: 0 !important;
+  #main > .intro + .snapshots-outer,
+  #main > .career-section,
+  #main > .skills-section,
+  #main > .love-hate {
+    padding-top: var(--section-padding-mobile) !important;
+    padding-bottom: var(--section-padding-mobile) !important;
+  }
+
+  #main > .skills-section {
+    overflow: visible;
   }
 
   html,
-  body,
-  #main {
+  body {
     overflow-x: hidden;
     max-width: 100%;
+  }
+
+  #main {
+    max-width: 100%;
+    overflow-x: visible;
   }
 }

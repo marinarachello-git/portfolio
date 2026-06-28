@@ -1,5 +1,6 @@
 const MAX_FONT_SIZE = 288;
 const MIN_FONT_SIZE = 48;
+const MOBILE_MIN_FONT_SIZE = 32;
 const PROBE_FONT_SIZE = 100;
 const TABLET_QUERY = "(max-width: 768px)";
 
@@ -25,6 +26,9 @@ export function initFitHeroTitle(title) {
     if (containerWidth <= 0) return 0;
 
     if (tabletMq.matches) {
+      const titleWidth = title.clientWidth;
+      if (titleWidth > 0) return titleWidth - 2;
+
       const introStyles = getComputedStyle(intro);
       const padding =
         parseFloat(introStyles.paddingLeft) + parseFloat(introStyles.paddingRight);
@@ -48,14 +52,12 @@ export function initFitHeroTitle(title) {
   };
 
   const fit = () => {
-    if (tabletMq.matches) {
-      clearFontSizes();
-      title.classList.remove("is-fitted");
-      return;
-    }
-
     const maxWidth = getAvailableWidth();
     if (maxWidth <= 0) return;
+
+    const isMobile = tabletMq.matches;
+    const minSize = isMobile ? MOBILE_MIN_FONT_SIZE : MIN_FONT_SIZE;
+    const maxSize = MAX_FONT_SIZE;
 
     clearFontSizes();
 
@@ -64,16 +66,26 @@ export function initFitHeroTitle(title) {
     if (probeWidth <= 0) return;
 
     let size = PROBE_FONT_SIZE * (maxWidth / probeWidth);
-    size = Math.max(MIN_FONT_SIZE, Math.min(MAX_FONT_SIZE, size));
+    size = Math.max(minSize, Math.min(maxSize, size));
     applyTitleSize(size);
 
-    while (getTextWidth(nameLine) > maxWidth + 0.5 && size > MIN_FONT_SIZE) {
+    while (getTextWidth(nameLine) > maxWidth + 0.5 && size > minSize) {
       size -= 0.5;
       applyTitleSize(size);
     }
 
+    while (getTextWidth(nameLine) < maxWidth - 1 && size < maxSize) {
+      size += 0.5;
+      applyTitleSize(size);
+      if (getTextWidth(nameLine) > maxWidth + 0.5) {
+        size -= 0.5;
+        applyTitleSize(size);
+        break;
+      }
+    }
+
     if (getTextWidth(nameLine) > maxWidth) {
-      applyTitleSize(Math.max(MIN_FONT_SIZE, size - 1));
+      applyTitleSize(Math.max(minSize, size - 1));
     }
 
     title.classList.add("is-fitted");
@@ -102,5 +114,6 @@ export function initFitHeroTitle(title) {
   if ("ResizeObserver" in window) {
     const observer = new ResizeObserver(scheduleFit);
     observer.observe(intro);
+    observer.observe(title);
   }
 }

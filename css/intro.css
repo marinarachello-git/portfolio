@@ -32,6 +32,10 @@
   color: var(--color-portfolio-white);
 }
 
+.intro__role {
+  opacity: 0.6;
+}
+
 .intro__employer {
   text-align: right;
 }
@@ -103,7 +107,9 @@
     min-height: auto;
     overflow: hidden;
     max-width: 100%;
-    padding: 24px 24px 100px;
+    padding-inline: 24px;
+    padding-top: 0;
+    padding-bottom: 0;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -112,7 +118,7 @@
 
   .intro__topline {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: flex-start;
     width: 100%;
     margin-bottom: 16px;
@@ -124,14 +130,14 @@
     gap: 12px;
   }
 
-  .intro__role,
-  .intro__employer {
+  .intro__role {
     min-width: 0;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .intro__employer {
-    flex-shrink: 0;
-    text-align: right;
+    display: none;
   }
 
   .intro__title {
@@ -142,10 +148,14 @@
     max-width: 100%;
     margin: 0;
     padding: 0;
-    font-size: min(12.5vw, 6rem);
     line-height: 0.88;
     letter-spacing: -0.02em;
     overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .intro__title.is-fitted {
+    width: 100%;
   }
 
   .intro__title-line--name {
@@ -154,6 +164,7 @@
     white-space: nowrap;
     overflow: hidden;
     display: block;
+    width: 100%;
     max-width: 100%;
     color: var(--color-portfolio-white);
     margin: 0;
@@ -162,21 +173,27 @@
 
   .intro__title-line--greeting {
     display: block;
+    width: 100%;
     line-height: 0.88;
     letter-spacing: -0.03em;
   }
 
   .intro__bio {
     position: static !important;
-    align-self: flex-end;
-    text-align: right;
+    align-self: flex-start;
+    text-align: left;
     margin-top: 28px;
-    margin-left: auto;
+    margin-left: 0;
+    margin-right: auto;
     font-size: 14px;
     line-height: 1.6;
     width: auto;
     max-width: min(400px, 100%);
     box-sizing: border-box;
     color: var(--color-portfolio-white);
+  }
+
+  .intro__bio p {
+    text-align: left;
   }
 }

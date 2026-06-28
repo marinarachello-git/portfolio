@@ -69,7 +69,7 @@ main {
 
 @media (max-width: 768px) {
   main {
-    overflow-x: hidden;
+    overflow-x: visible;
   }
 }
 

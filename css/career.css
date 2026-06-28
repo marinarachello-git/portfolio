@@ -101,8 +101,17 @@
 }
 
 @media (max-width: 768px) {
+  .career-section {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
   .career-header {
     padding: 0 24px 0;
+  }
+
+  .career-header__title {
+    font-size: 3rem;
   }
 }
 

@@ -99,7 +99,7 @@ footer.is-revealed .footer-links {
 
 @media (max-width: 768px) {
   footer {
-    padding: 48px 24px 64px;
+    padding: var(--section-padding-mobile) 24px;
   }
 
   .footer-headline {
