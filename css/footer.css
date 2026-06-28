@@ -4,7 +4,8 @@ footer {
   left: 0;
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   z-index: 0;
   pointer-events: none;
   background: var(--color-red);
@@ -19,6 +20,12 @@ footer {
   text-align: center;
 }
 
+@supports not (overflow: clip) {
+  footer {
+    overflow-x: hidden;
+  }
+}
+
 footer.is-revealed {
   z-index: 100;
   pointer-events: auto;
@@ -30,13 +37,15 @@ footer.is-revealed {
   margin: 0;
   width: 100%;
   max-width: 100%;
-  overflow: hidden;
+  overflow: visible;
   pointer-events: none;
   font-family: var(--font-serif);
-  font-size: 13vw;
+  /* Scale so “Thank you Bye” fits one line without clipping */
+  font-size: min(13vw, 12rem, calc((100vw - 96px) / 10.5));
   white-space: nowrap;
-  line-height: 1;
-  padding-bottom: 0;
+  line-height: 1.1;
+  padding: 0.1em 24px 0.14em;
+  box-sizing: border-box;
   text-align: center;
 }
 
@@ -91,5 +100,10 @@ footer.is-revealed .footer-links {
 @media (max-width: 768px) {
   footer {
     padding: 48px 24px 64px;
+  }
+
+  .footer-headline {
+    font-size: min(15vw, 10rem, calc((100vw - 48px) / 10.5));
+    padding-inline: 16px;
   }
 }

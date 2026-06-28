@@ -33,12 +33,12 @@
 }
 
 .career-outer {
-  overflow: clip;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
   width: 100%;
   min-width: 0;
   max-width: 100%;
-  line-height: 0;
+  line-height: normal;
   box-sizing: border-box;
   contain: inline-size layout paint;
   isolation: isolate;
@@ -60,9 +60,13 @@
   justify-content: space-between;
   align-items: flex-start;
   flex-shrink: 0;
-  height: 220px;
+  width: max-content;
+  min-width: max-content;
+  min-height: 240px;
+  height: auto;
   border-left: 1px solid #c8c2b8;
-  padding: 16px 0 0 24px;
+  padding: 16px 32px 28px 24px;
+  box-sizing: border-box;
 }
 
 .career-card__meta {
@@ -75,24 +79,18 @@
   color: #2a2a2a;
   opacity: 0.5;
   white-space: nowrap;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .career-card__name {
   align-self: flex-start;
   margin: 0;
-  padding-bottom: 0;
+  padding-bottom: 0.08em;
   font-family: var(--font-sans);
   font-size: clamp(3rem, 10vw, 80px);
   font-weight: 700;
   color: #1a1a1a;
   white-space: nowrap;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1;
+  line-height: 1.08;
   letter-spacing: -0.03em;
 }
 
