@@ -2,7 +2,7 @@
   background: var(--color-dark-grey);
   margin: 0;
   padding-top: 180px;
-  padding-bottom: 180px;
+  padding-bottom: max(180px, 32vh);
   padding-left: clamp(1.25rem, 5vw, 5rem);
   padding-right: clamp(1.25rem, 5vw, 5rem);
   text-align: center;
@@ -10,8 +10,14 @@
   min-width: 0;
   max-width: 100%;
   overflow-x: clip;
-  overflow-x: hidden;
+  overflow-y: visible;
   box-sizing: border-box;
+}
+
+@supports not (overflow: clip) {
+  .love-hate {
+    overflow-x: hidden;
+  }
 }
 
 .skills-section + .love-hate {
@@ -33,6 +39,11 @@
 .love-hate__block {
   max-width: 100%;
   margin-inline: auto;
+  overflow: visible;
+}
+
+.love-hate__block + .love-hate__block {
+  margin-top: 3rem;
 }
 
 .love-hate__text {
@@ -41,9 +52,11 @@
   font-size: clamp(3.5rem, 8vw, 7rem);
   font-weight: 400;
   font-style: normal;
-  line-height: 1.05;
+  line-height: 1.12;
+  padding-block: 0.08em;
   color: var(--color-portfolio-beige);
   text-align: center;
+  overflow: visible;
 }
 
 .love-hate__accent {
@@ -51,9 +64,8 @@
   font-style: italic;
 }
 
-.love-hate__divider {
-  margin: 3rem auto;
-  font-size: 2.5rem;
-  line-height: 1;
-  color: var(--color-red);
+.love-hate__item {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-style: normal;
 }

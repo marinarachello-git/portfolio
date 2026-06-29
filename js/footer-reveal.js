@@ -3,6 +3,12 @@ export function initFooterReveal() {
   const spacer = document.querySelector(".footer-spacer");
   if (!footer || !spacer) return;
 
+  const syncSpacerHeight = () => {
+    const height = footer.offsetHeight;
+    spacer.style.height = `${height}px`;
+    spacer.style.minHeight = `${height}px`;
+  };
+
   const setRevealed = (revealed) => {
     footer.classList.toggle("is-revealed", revealed);
   };
@@ -17,17 +23,27 @@ export function initFooterReveal() {
     setRevealed(isNearPageBottom());
   };
 
-  if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setRevealed(entry.isIntersecting || isNearPageBottom());
-      },
-      { threshold: 0 }
-    );
-    observer.observe(spacer);
+  const scheduleSync = () => {
+    window.requestAnimationFrame(() => {
+      syncSpacerHeight();
+      updateRevealed();
+    });
+  };
+
+  scheduleSync();
+
+  window.addEventListener("resize", scheduleSync, { passive: true });
+  window.addEventListener("load", scheduleSync, { once: true });
+
+  if (document.fonts?.ready) {
+    document.fonts.ready.then(scheduleSync);
+  }
+
+  if ("ResizeObserver" in window) {
+    const resizeObserver = new ResizeObserver(scheduleSync);
+    resizeObserver.observe(footer);
   }
 
   updateRevealed();
   window.addEventListener("scroll", updateRevealed, { passive: true });
-  window.addEventListener("resize", updateRevealed, { passive: true });
 }

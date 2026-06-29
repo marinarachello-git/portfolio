@@ -123,11 +123,13 @@ export function initSnapshots(root) {
     const sample = getSampleImage();
     if (!sample?.naturalWidth) return;
 
-    const dpr = window.devicePixelRatio || 1;
-    const nativeWidth = sample.naturalWidth;
-    const crispCap = nativeWidth / dpr;
-    const desktopCap = Math.min(1024, wrapper.clientWidth * 0.92);
-    const desktopWidth = Math.round(Math.min(desktopCap, crispCap));
+    if (mobileMq.matches) return;
+
+    const DESKTOP_TARGET = 900;
+    const desktopCap = Math.min(DESKTOP_TARGET, wrapper.clientWidth * 0.92);
+    const desktopWidth = Math.round(
+      Math.min(desktopCap, sample.naturalWidth)
+    );
 
     root.style.setProperty("--snapshots-card-width", `${desktopWidth}px`);
   };

@@ -50,7 +50,7 @@
 
 .snapshots-card {
   flex: 0 0 auto;
-  width: var(--snapshots-card-width, min(1024px, 92vw));
+  width: var(--snapshots-card-width, min(900px, 92vw));
 }
 
 .snapshots-card__image {
@@ -80,7 +80,7 @@
   .snapshots-header__title {
     margin: 0;
     font-family: var(--font-serif);
-    font-size: clamp(3rem, 11.5vw, 4.5rem);
+    font-size: 3rem;
     font-weight: 700;
     font-style: italic;
     color: var(--color-red);
@@ -170,9 +170,9 @@
   }
 
   .snapshots-card {
-    flex: 0 0 var(--snapshots-card-width, min(1024px, 92vw));
+    flex: 0 0 var(--snapshots-card-width, min(900px, 92vw));
     scroll-snap-align: start;
-    width: var(--snapshots-card-width, min(1024px, 92vw));
+    width: var(--snapshots-card-width, min(900px, 92vw));
     max-width: 100%;
   }
 

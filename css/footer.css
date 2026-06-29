@@ -9,12 +9,11 @@ footer {
   z-index: 0;
   pointer-events: none;
   background: var(--color-red);
-  min-height: 50vh;
-  padding: 48px 48px 64px;
+  padding: 48px 0 64px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: center;
+  align-items: stretch;
   box-sizing: border-box;
   color: var(--color-portfolio-beige);
   text-align: center;
@@ -27,38 +26,61 @@ footer {
 }
 
 footer.is-revealed {
-  z-index: 100;
+  z-index: 2;
   pointer-events: auto;
 }
 
-.footer-headline {
+.footer-marquee {
   position: relative;
   z-index: 1;
-  margin: 0;
+  overflow-x: clip;
+  overflow-y: visible;
   width: 100%;
   max-width: 100%;
-  overflow: visible;
-  pointer-events: none;
-  font-family: var(--font-serif);
-  /* Scale so “Thank you Bye” fits one line without clipping */
-  font-size: min(13vw, 12rem, calc((100vw - 96px) / 10.5));
+  margin-bottom: 24px;
+}
+
+@supports not (overflow: clip) {
+  .footer-marquee {
+    overflow-x: hidden;
+  }
+}
+
+.footer-marquee-track {
+  display: flex;
+  align-items: flex-end;
   white-space: nowrap;
-  line-height: 1.1;
-  padding: 0.1em 24px 0.14em;
-  box-sizing: border-box;
-  text-align: center;
+  animation: footer-marquee 16s linear infinite;
+  width: max-content;
+  padding-bottom: 0.12em;
 }
 
 .footer-thankyou {
-  font-size: inherit;
+  font-family: var(--font-serif);
+  font-size: 26vw;
   font-weight: 700;
   color: var(--color-portfolio-beige);
+  line-height: 1.12;
+  padding-bottom: 0.08em;
 }
 
 .footer-bye {
-  font-size: inherit;
+  font-family: var(--font-serif);
+  font-size: 26vw;
   font-weight: 900;
   color: var(--color-near-black);
+  line-height: 1.12;
+  padding-bottom: 0.08em;
+}
+
+@keyframes footer-marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .footer-links {
@@ -68,7 +90,7 @@ footer.is-revealed {
   flex-direction: column;
   align-items: center;
   gap: 0;
-  padding-top: 40px;
+  padding: 40px 48px 0;
   pointer-events: none;
 }
 
@@ -93,17 +115,22 @@ footer.is-revealed .footer-links {
 
 .footer-spacer {
   flex-shrink: 0;
-  height: 50vh;
+  min-height: max(50vh, calc(30vw + 280px));
   pointer-events: none;
 }
 
 @media (max-width: 768px) {
   footer {
-    padding: var(--section-padding-mobile) 24px;
+    padding: var(--section-padding-mobile) 0;
   }
 
-  .footer-headline {
-    font-size: min(15vw, 10rem, calc((100vw - 48px) / 10.5));
-    padding-inline: 16px;
+  .footer-links {
+    padding-inline: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-marquee-track {
+    animation: none;
   }
 }
