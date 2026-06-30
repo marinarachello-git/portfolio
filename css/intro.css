@@ -68,16 +68,20 @@
   color: var(--color-near-black);
   font-weight: 700;
   letter-spacing: -0.03em;
+  width: max-content;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.hello-word {
+  display: inline-block;
+  white-space: nowrap;
+  color: var(--color-near-black);
 }
 
 @media (min-width: 769px) {
   .intro__title {
     cursor: default;
-  }
-
-  .hello-word {
-    display: inline-block;
-    color: var(--color-near-black);
   }
 }
 
@@ -158,7 +162,7 @@
     padding: 0;
     line-height: 0.88;
     letter-spacing: -0.02em;
-    overflow: hidden;
+    overflow: visible;
     box-sizing: border-box;
   }
 
@@ -181,7 +185,6 @@
 
   .intro__title-line--greeting {
     display: block;
-    width: 100%;
     line-height: 0.88;
     letter-spacing: -0.03em;
   }

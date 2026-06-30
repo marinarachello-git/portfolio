@@ -110,7 +110,7 @@
   transform: none;
 }
 
-@media (min-width: 769px) {
+@media (min-width: 821px) {
   .skills-section {
     overflow: visible;
   }
@@ -125,11 +125,12 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 820px) {
   .skills-section {
-    --skills-pad-y: 0;
+    --skills-pad-y: 60px;
     --skills-pad-x: 24px;
     --skills-sticky-top: var(--section-padding-mobile);
+    padding: 60px 24px;
     overflow: visible;
   }
 
@@ -149,7 +150,7 @@
     min-width: 0;
     text-align: left;
     margin: 0 0 40px;
-    font-size: 3rem;
+    font-size: clamp(2.5rem, 8vw, 4rem);
   }
 
   .skills-title[data-animate-title] {
@@ -165,10 +166,11 @@
 
   .skill-row {
     min-height: calc(24px * 1.1 + 48px);
+    padding: 24px 0;
   }
 
   .skill-name {
-    font-size: 24px;
+    font-size: clamp(1rem, 3.5vw, 1.3rem);
     white-space: normal;
   }
 }

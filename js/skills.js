@@ -1,5 +1,5 @@
-const PLUS_ICON = "assets/skills/icon-plus.png";
-const MINUS_ICON = "assets/skills/icon-minus.png";
+const PLUS_ICON = "assets/skills/icon-plus.webp";
+const MINUS_ICON = "assets/skills/icon-minus.webp";
 
 function setToggleState(toggle, isOpen) {
   const icon = toggle.querySelector(".skill-toggle__icon");

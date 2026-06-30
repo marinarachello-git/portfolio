@@ -1,0 +1,11 @@
+{
+  "name": "portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "convert-images": "node convert-images.js"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.2"
+  }
+}

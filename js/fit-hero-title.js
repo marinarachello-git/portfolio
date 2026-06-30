@@ -1,3 +1,5 @@
+import { DEFAULT_WORD, WORDS } from "./hello-word.js";
+
 const MAX_FONT_SIZE = 288;
 const MIN_FONT_SIZE = 48;
 const MOBILE_MIN_FONT_SIZE = 32;
@@ -9,8 +11,9 @@ export function initFitHeroTitle(title) {
 
   const nameLine = title.querySelector(".intro__title-line--name");
   const greetingLine = title.querySelector(".intro__title-line--greeting");
+  const helloEl = greetingLine?.querySelector(".hello-word");
   const intro = title.closest(".intro");
-  if (!nameLine || !greetingLine || !intro) return;
+  if (!nameLine || !greetingLine || !helloEl || !intro) return;
 
   const tabletMq = window.matchMedia(TABLET_QUERY);
 
@@ -47,6 +50,20 @@ export function initFitHeroTitle(title) {
     return range.getBoundingClientRect().width;
   };
 
+  const getTitleContentWidth = () => {
+    const nameWidth = getTextWidth(nameLine);
+    const savedWord = helloEl.textContent;
+    let maxGreetingWidth = 0;
+
+    for (const word of [DEFAULT_WORD, ...WORDS]) {
+      helloEl.textContent = word;
+      maxGreetingWidth = Math.max(maxGreetingWidth, getTextWidth(helloEl));
+    }
+
+    helloEl.textContent = savedWord;
+    return Math.max(nameWidth, maxGreetingWidth);
+  };
+
   const applyTitleSize = (size) => {
     title.style.fontSize = `${size}px`;
   };
@@ -62,29 +79,29 @@ export function initFitHeroTitle(title) {
     clearFontSizes();
 
     applyTitleSize(PROBE_FONT_SIZE);
-    const probeWidth = getTextWidth(nameLine);
+    const probeWidth = getTitleContentWidth();
     if (probeWidth <= 0) return;
 
     let size = PROBE_FONT_SIZE * (maxWidth / probeWidth);
     size = Math.max(minSize, Math.min(maxSize, size));
     applyTitleSize(size);
 
-    while (getTextWidth(nameLine) > maxWidth + 0.5 && size > minSize) {
+    while (getTitleContentWidth() > maxWidth + 0.5 && size > minSize) {
       size -= 0.5;
       applyTitleSize(size);
     }
 
-    while (getTextWidth(nameLine) < maxWidth - 1 && size < maxSize) {
+    while (getTitleContentWidth() < maxWidth - 1 && size < maxSize) {
       size += 0.5;
       applyTitleSize(size);
-      if (getTextWidth(nameLine) > maxWidth + 0.5) {
+      if (getTitleContentWidth() > maxWidth + 0.5) {
         size -= 0.5;
         applyTitleSize(size);
         break;
       }
     }
 
-    if (getTextWidth(nameLine) > maxWidth) {
+    if (getTitleContentWidth() > maxWidth) {
       applyTitleSize(Math.max(minSize, size - 1));
     }
 
