@@ -9,7 +9,7 @@ footer {
   z-index: 0;
   pointer-events: none;
   background: var(--color-red);
-  padding: 48px 0 64px;
+  padding: 48px 0 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -113,6 +113,20 @@ footer.is-revealed .footer-links {
   text-decoration: underline;
 }
 
+.footer-copyright {
+  position: relative;
+  z-index: 2;
+  margin: 32px 0 0;
+  padding: 0 24px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--color-portfolio-beige);
+  opacity: 0.5;
+}
+
 .footer-spacer {
   flex-shrink: 0;
   min-height: max(50vh, calc(30vw + 280px));
@@ -121,7 +135,7 @@ footer.is-revealed .footer-links {
 
 @media (max-width: 768px) {
   footer {
-    padding: var(--section-padding-mobile) 0;
+    padding: var(--section-padding-mobile) 0 20px;
   }
 
   .footer-links {
